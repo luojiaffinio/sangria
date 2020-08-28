@@ -81,7 +81,7 @@ class ArgsSpec extends AnyWordSpec with Matchers {
         args.optionalArgs should be (Set(OptionalArgumentName))
         args.undefinedArgs should be (Set.empty)
         args.defaultInfo should be (Cache.empty)
-
+        args.argOpt(optionalArgument) should be (Some(Some(9001)))
         args.arg(optionalArgument) should be (Some(9001))
       }
 
