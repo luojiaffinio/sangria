@@ -329,8 +329,10 @@ case class Args(raw: Map[String, Any], argsWithDefault: Set[String], optionalArg
   def argOpt[T](name: String): Option[T] = getAsOptional(name)
 
   def argOpt[T](arg: Argument[T]): Option[T] =
-    if (optionalArgs.contains(arg.name))
+    if (optionalArgs.contains(arg.name) && argsWithDefault.contains(arg.name))
       getAsOptional[T](arg.name)
+    else if (optionalArgs.contains(arg.name))
+      Some(getAsOptional[T](arg.name)).asInstanceOf[Option[T]]
     else
       raw.get(arg.name).asInstanceOf[Option[T]]
 
